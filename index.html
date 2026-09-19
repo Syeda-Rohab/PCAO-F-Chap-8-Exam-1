@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ur-Latn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude aur ChatGPT 101 - Explanation</title>
+<style>
+  * { box-sizing: border-box; }
+  html { font-size: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0d0d0d;
+    color: #e8e8e8;
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  .container { max-width: 780px; margin: 0 auto; padding: 32px 20px 60px; }
+  header {
+    text-align: center;
+    padding: 28px 20px;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    color: #fff;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid #333;
+  }
+  header h1 { margin: 0 0 8px; font-size: 1.5em; }
+  header p { margin: 0; opacity: 0.75; font-style: italic; font-size: 0.95em; }
+  h2 {
+    color: #ffd75e;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-top: 40px;
+    font-size: 1.25em;
+  }
+  .para-block {
+    background: #171717;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 14px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    border-left: 4px solid #555;
+  }
+  .para-label { color: #ff8a65; font-weight: 700; font-size: 0.9em; margin-bottom: 6px; display: block; }
+  .para-text { margin: 0; font-size: 1em; color: #ddd; }
+  .diagram-box {
+    background: #171717;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 18px 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    border: 1px solid #2a2a2a;
+  }
+  .diagram-box svg { width: 100%; height: auto; display: block; }
+  .diagram-caption { text-align: center; font-size: 0.85em; color: #999; margin-top: 10px; font-style: italic; }
+  table.mini-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.88em; }
+  table.mini-table th, table.mini-table td { border: 1px solid #333; padding: 6px 8px; text-align: right; color: #ddd; }
+  table.mini-table th { background: #222; color: #ffd75e; }
+  .summary-box {
+    background: #171717;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-top: 20px;
+  }
+  .summary-box ul { padding-left: 20px; margin: 0; }
+  .summary-box li { margin-bottom: 10px; color: #ddd; }
+  footer { text-align: center; font-size: 0.8em; color: #777; margin-top: 40px; }
+  footer a { color: #ffd75e; }
+
+  .quiz-intro {
+    background: #221c0e;
+    border: 1px solid #4a3d1a;
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: #e0c060;
+    font-size: 0.95em;
+  }
+  .quiz-question {
+    background: #171717;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    border-left: 4px solid #ff8a65;
+  }
+  .quiz-q-text { margin: 0 0 12px; font-size: 1em; color: #f0f0f0; }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-option {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border: 1px solid #333; border-radius: 8px;
+    cursor: pointer; transition: background 0.15s, border-color 0.15s; font-size: 0.95em;
+    color: #ddd; background: #1c1c1c;
+  }
+  .quiz-option:hover { background: #242424; border-color: #555; }
+  .quiz-option input { accent-color: #ffd75e; width: 16px; height: 16px; flex-shrink: 0; }
+  .quiz-option.correct-answer { background: #14301c; border-color: #2e7d32; font-weight: 600; color: #8fe6a0; }
+  .quiz-option.wrong-answer { background: #341414; border-color: #c62828; color: #ff9e9e; }
+  .quiz-explain { margin-top: 12px; padding: 10px 14px; background: #1c1c1c; border-radius: 8px; font-size: 0.9em; color: #bbb; border: 1px solid #2a2a2a; }
+  .quiz-actions { text-align: center; margin: 30px 0 10px; }
+  .btn-primary, .btn-secondary {
+    padding: 12px 28px; font-size: 1em; border: none; border-radius: 8px;
+    cursor: pointer; font-weight: 600; margin: 0 6px;
+  }
+  .btn-primary { background: #ffd75e; color: #111; }
+  .btn-primary:hover { background: #e0bd40; }
+  .btn-secondary { background: #2a2a2a; color: #eee; }
+  .btn-secondary:hover { background: #3a3a3a; }
+  .score-banner {
+    text-align: center; font-size: 1.15em; font-weight: 700;
+    padding: 16px 20px; border-radius: 10px; margin: 20px 0;
+  }
+  .score-banner.pass { background: #14301c; color: #8fe6a0; border: 1px solid #2e7d32; }
+  .score-banner.fail { background: #341414; color: #ff9e9e; border: 1px solid #c62828; }
+
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 40px; }
+    header { padding: 20px 14px; border-radius: 10px; margin-bottom: 20px; }
+    header h1 { font-size: 1.3em; line-height: 1.4; }
+    header p { font-size: 0.95em; }
+    h2 { font-size: 1.15em; margin-top: 28px; padding-bottom: 6px; }
+    .para-block { padding: 14px 16px; margin: 10px 0; border-radius: 8px; }
+    .para-label { font-size: 0.95em; }
+    .para-text { font-size: 1em; line-height: 1.65; }
+    .diagram-box { padding: 10px; border-radius: 10px; }
+    .diagram-caption { font-size: 0.8em; }
+    table.mini-table { font-size: 0.78em; }
+    table.mini-table th, table.mini-table td { padding: 5px 5px; }
+    .summary-box { padding: 16px 18px; border-radius: 10px; }
+    .summary-box li { font-size: 1em; }
+    .quiz-intro { padding: 14px 16px; font-size: 0.98em; }
+    .quiz-question { padding: 16px 16px; margin: 12px 0; border-radius: 8px; }
+    .quiz-q-text { font-size: 1em; }
+    .quiz-option { padding: 12px 12px; font-size: 0.98em; gap: 8px; }
+    .quiz-explain { font-size: 0.95em; padding: 12px 14px; }
+    .quiz-actions { display: flex; flex-direction: column; gap: 10px; margin: 24px 0 10px; }
+    .btn-primary, .btn-secondary { width: 100%; margin: 0; padding: 14px 20px; font-size: 1em; }
+    .score-banner { font-size: 1.05em; padding: 14px 16px; }
+    footer { font-size: 0.85em; padding: 0 10px; }
+  }
+  @media (max-width: 380px) {
+    header h1 { font-size: 1.15em; }
+    .quiz-q-text strong { display: block; margin-bottom: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Claude aur ChatGPT 101: Aik Crash Course</h1>
+  <p>Chapter Explanation — Roman Urdu (Sabse Aasan Version)</p>
+</header>
+
+<h2>Shuruaat</h2>
+
+<div class="para-block"><span class="para-label">Intro:</span><p class="para-text">Aap Claude ya ChatGPT kholte hain aur bohat saare buttons dikhte hain — model chunna, Plus menu, Projects, Memory, Skills, Connectors. Naam alag alag hain lekin asal cheez ek hi hai. Ye chapter Claude aur ChatGPT dono ko saath sikhata hai — buttons yaad karne ki bajaye, unke peeche wala tareeqa samajhna hai.</p></div>
+
+<div class="para-block"><span class="para-label">Zaroori baat:</span><p class="para-text">Claude "artifact" bolta hai, ChatGPT "writing block" bolta hai. Claude "connector" bolta hai, ChatGPT "app" bolta hai. Naam alag hain, kaam wahi hai. Isi liye ye chapter aik nahin, do jagah sikhata hai.</p></div>
+
+<h2>Hissa 1: Cockpit</h2>
+
+<div class="diagram-box">
+<svg width="100%" viewBox="0 0 680 240" role="img">
+<title>Two cockpits, one discipline diagram</title>
+<desc>Claude and ChatGPT look different but teach the same underlying discipline: describe tasks clearly, give context, choose what to delegate, and check the answer.</desc>
+<rect x="0" y="0" width="680" height="240" fill="#111111"/>
+<rect x="20" y="20" width="280" height="120" rx="8" fill="#2a2a2a" stroke="#8a8a8a" stroke-width="1"/>
+<text x="160" y="48" text-anchor="middle" font-size="15" font-weight="700" fill="#f0f0f0">Claude</text>
+<text x="160" y="72" text-anchor="middle" font-size="11" fill="#aaa">Artifact, Connector,</text>
+<text x="160" y="90" text-anchor="middle" font-size="11" fill="#aaa">Project Knowledge</text>
+<rect x="380" y="20" width="280" height="120" rx="8" fill="#2a2a2a" stroke="#8a8a8a" stroke-width="1"/>
+<text x="520" y="48" text-anchor="middle" font-size="15" font-weight="700" fill="#f0f0f0">ChatGPT</text>
+<text x="520" y="72" text-anchor="middle" font-size="11" fill="#aaa">Writing Block, App,</text>
+<text x="520" y="90" text-anchor="middle" font-size="11" fill="#aaa">Project Files</text>
+<text x="340" y="120" text-anchor="middle" font-size="18" font-weight="700" fill="#ffd75e">=</text>
+<text x="340" y="175" text-anchor="middle" font-size="14" font-weight="600" fill="#ff8a65">Naam alag, kaam wahi</text>
+<text x="340" y="200" text-anchor="middle" font-size="12" fill="#999">Aik discipline seekho, do jagah use karo</text>
+</svg>
+<p class="diagram-caption">Claude aur ChatGPT — naam alag, kaam bilkul wahi</p>
+</div>
+
+<div class="para-block"><span class="para-label">Idea 1 (Do jagah, ek tareeqa):</span><p class="para-text">Claude aur ChatGPT dono ek jaisi cheezein dete hain: purani chats ki list, message box, model chunne ka control, files upload karna, Projects, memory, aur search. Dono jagah wahi hunar chalti hai: kaam saaf saaf batana, zaroori jaankari dena, decide karna kya AI ko dena hai, jawab check karna. Achi aadat: kisi bhi zaroori sawal se pehle 3 cheezein batao — aap kaun ho, kya chahiye, aur kaunse rules follow hon.</p></div>
+
+<div class="para-block"><span class="para-label">Idea 2 (Model chunna aur Thinking Mode):</span><p class="para-text">Dono AI aapko chunne dete hain kitni "soch" (capability) is kaam par kharch karni hai. 3 levels: Fast (rozmarra kaam, tez aur sasta), Thinking (mushkil sawal, dheema lekin gehra), Heavy (sabse mushkil kaam, sabse dheema aur mehnga). Naam badalte rehte hain lekin ye 3 levels hamesha rehte hain. Rule 1: Fast se shuru karo. Rule 2: Kaam mushkil ho (kai steps, math, tricky code) to level barhao.</p></div>
+
+<div class="para-block"><span class="para-label">Idea 3 (Wo cheezein jo aap attach karte ho):</span><p class="para-text">AI sirf wahi dekh sakta hai jo aap uske saamne rakhte ho. Files, PDF, spreadsheet, screenshot attach karna AI ko zyada context deta hai. "Is contract ka summary do" aur "is contract ka summary do (file attached)" — alfaz same hain, lekin doosra kaam ka hai kyun ke AI asal file dekh sakta hai. Achi aadat: apne aap se poocho "ek qabil colleague ko theek jawab dene se pehle kya dikhana zaroori hoga?" phir wahi AI ko do.</p></div>
+
+<h2>Hissa 2: Apna Workspace Banana</h2>
+
+<div class="para-block"><span class="para-label">Idea 4 (Projects):</span><p class="para-text">Kuch hafton baad aapki chat list ulajh jati hai — ek hi client ke baare mein 4 alag chats. Project ek kamra hai jahan ek kaam ki har cheez ek jagah rehti hai: chats, Knowledge (files), aur Instructions (hamesha lagu hone wale rules). Test: agar aap ne wahi background 3 baar samjhaya ya wahi file 3 baar upload ki, ab is kaam ka Project banana chahiye. Claude project files barhne par "search" karta hai (retrieval), ChatGPT project ke andar apni alag memory rakh sakta hai.</p></div>
+
+<div class="diagram-box">
+<svg width="100%" viewBox="0 0 680 240" role="img">
+<title>Three kinds of persistence diagram</title>
+<desc>Standing instructions hold stable rules, memory holds evolving context about you, and projects hold scoped work like one client or one course.</desc>
+<rect x="0" y="0" width="680" height="240" fill="#111111"/>
+<rect x="10" y="20" width="210" height="140" rx="8" fill="#2a2a2a" stroke="#8a8a8a" stroke-width="1"/>
+<text x="115" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#f0f0f0">Standing Instructions</text>
+<text x="115" y="75" text-anchor="middle" font-size="11" fill="#aaa">Hamesha wali rule</text>
+<text x="115" y="95" text-anchor="middle" font-size="11" fill="#aaa">"seedha jawab do"</text>
+<rect x="235" y="20" width="210" height="140" rx="8" fill="#3a2010" stroke="#c9622a" stroke-width="1"/>
+<text x="340" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#ffa15e">Memory</text>
+<text x="340" y="75" text-anchor="middle" font-size="11" fill="#e0a060">Aapke baare mein</text>
+<text x="340" y="95" text-anchor="middle" font-size="11" fill="#e0a060">badalti jaankari</text>
+<rect x="460" y="20" width="210" height="140" rx="8" fill="#3a2f10" stroke="#c9a227" stroke-width="1"/>
+<text x="565" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#ffd75e">Projects</text>
+<text x="565" y="75" text-anchor="middle" font-size="11" fill="#e0c060">Ek kaam ka</text>
+<text x="565" y="95" text-anchor="middle" font-size="11" fill="#e0c060">poora kamra</text>
+<text x="340" y="200" text-anchor="middle" font-size="13" font-weight="600" fill="#f0f0f0">Stable rule = Instructions | Badalti baat = Memory | Ek kaam ka sab kuch = Project</text>
+</svg>
+<p class="diagram-caption">3 tarah ki yaadasht — teeno alag kaam ke liye hain</p>
+</div>
+
+<div class="para-block"><span class="para-label">Idea 5 (Memory aur Instructions):</span><p class="para-text">Standing Instructions = wo stable rules jo hamesha follow honi hain, jaise "hamesha seedha jawab do." Memory = AI ki apni chats se seekhi hui, badalti hui jaankari aapke baare mein — isay check/edit/delete kar sakte ho. Incognito ya temporary chat memory-free hoti hai, lekin trace-free nahi — company kuch waqt (30 din) ke liye ek copy safety ke liye rakhti hai. Seedha rule: Stable rules → Instructions. Badalti jaankari → Memory. Ek kaam ka poora context → Projects.</p></div>
+
+<div class="para-block"><span class="para-label">Idea 6 (Artifacts aur Writing Blocks):</span><p class="para-text">Lambi chat conversation ke liye achi hai, lekin poora kaam rakhne ke liye buri hai. Claude "artifact" banata hai — document, code, diagram, ya chhoti app jo chat ke sath khulti hai. ChatGPT "writing block" aur "code block" banata hai — chat ke andar hi editable hissa (canvas ki jagah aaya). Behtar result: sirf "dashboard banao" mat kaho — poora batao kaam kya karna chahiye, kis ke liye hai.</p></div>
+
+<div class="para-block"><span class="para-label">Idea 7 (Skills aur Plugins):</span><p class="para-text">Project batata hai "kya jaankari" chahiye. Skill batati hai "kaise kaam karna" hai. Skill ek packaged tareeqa hai kisi kaam ko karne ka — instructions, examples, kabhi code. Dono, Claude aur ChatGPT, Skills rakhte hain, aur "Agent Skills open standard" ki wajah se ek jagah banayi Skill doosri jagah bhi chal jati hai. Plugin ek bara package hai jo Skills + Connectors + commands sab ek sath jorta hai. ChatGPT ke "Custom GPTs" alag configured assistant hote hain, Skill se alag cheez.</p></div>
+
+<h2>Hissa 3: Rasai Barhana</h2>
+
+<div class="para-block"><span class="para-label">Idea 8 (Connectors, Apps, aur Sahi Raasta):</span><p class="para-text">Connector (Claude) ya App (ChatGPT) AI ko aapki asal app (email, calendar, Drive) tak pohanchne deta hai. MCP wo common standard hai jispar ye chalte hain — jaise "USB-C" plug, lekin plug standard hone ka matlab access safe hona nahi hai. Kisi bhi cheez connect karne se pehle 4 sawal poocho: ye kya parh sakta hai? kya likh/bhej/delete kar sakta hai? kya mujhe source par bharosa hai? kya mujhe ye connect karne ki ijazat hai?</p></div>
+
+<table class="mini-table">
+<tr><th>Chahiye</th><th>Use karo</th></tr>
+<tr><td>Ek current fact</td><td>Web search</td></tr>
+<tr><td>Mushkil soch, nayi jaankari nahi chahiye</td><td>Thinking mode</td></tr>
+<tr><td>Poori, cited report</td><td>Research mode</td></tr>
+<tr><td>Company/organization ki apni jaankari</td><td>Workplace search</td></tr>
+</table>
+
+<div class="para-block"><span class="para-label">Research mode wali baat:</span><p class="para-text">Research mode "behtar search" nahi hai — AI poori investigation plan karta hai, kai searches karta hai, minutes lagte hain, aur citations ke sath report deta hai. Isay use karne ke baad bhi zimmedari khatam nahi hoti — zaroori baatein khud check karo, citations khol kar dekho.</p></div>
+
+<div class="para-block"><span class="para-label">Idea 9 (Purane Kaam Par Sabit Karo):</span><p class="para-text">Sabse zaroori sawal: kaise pata chale AI aapke kaam mein waqai acha hai? Jawab: benchmark ya demo par nahi — aapke apne asal kaam par, jiska sahi jawab aapko pehle se pata ho. 5 steps: 1) baar baar hone wala kaam chuno. 2) purani misaal dhoondo jiska sahi jawab pata hai. 3) AI se wahi kaam dobara banwao. 4) apne jaane huye jawab se compare karo. 5) behtar karo, dobara chalao. Agar match ho jaye, trust mil jata hai. Agar na ho, wo bhi zaroori seekh hai — pata chal jata hai kya insaan ke paas rehna chahiye.</p></div>
+
+<div class="para-block"><span class="para-label">Zaroori baat pass hone ke baad:</span><p class="para-text">Test pass hona sirf "milte julte future kaam" ke liye confidence deta hai — ye kabhi zimmedari transfer nahi karta. Aap phir bhi naye results check karte ho, final kaam ki zimmedari lete ho, aur zaroorat par batate ho ke AI ne madad ki.</p></div>
+
+<div class="summary-box">
+  <h2 style="margin-top:0; border:none;">End Summary (Aik Nazar Mein)</h2>
+  <ul>
+    <li>Claude aur ChatGPT alag naam use karte hain lekin asal discipline wahi hai — ek seekho, dono jagah lagao</li>
+    <li>Model chunna: Fast (rozmarra), Thinking (mushkil sawal), Heavy (sabse mushkil) — naam badalte hain, ye 3 levels hamesha rehte hain</li>
+    <li>AI sirf wo dekh sakta hai jo aap saamne rakho — files/context dena sabse zaroori aadat hai</li>
+    <li>Project = ek kaam ka poora kamra (chats + Knowledge + Instructions). Test: 3 baar wahi cheez dobara batayi to Project banao</li>
+    <li>Stable rule = Instructions. Badalti jaankari = Memory. Ek kaam ka context = Project</li>
+    <li>Artifacts/Writing blocks poore kaam ko chat scroll se bahar rakhte hain</li>
+    <li>Project batata hai "kya jaankari", Skill batati hai "kaise kaam" — dono alag cheezein hain</li>
+    <li>Connector/App aapki asal apps tak reach deta hai — connect karne se pehle 4 sawal poocho</li>
+    <li>Sahi raasta chuno: current fact = search, mushkil soch = thinking, poori report = research</li>
+    <li>AI ko purane, jaane huye kaam par test karo — yehi asal trust kamane ka tareeqa hai</li>
+  </ul>
+</div>
+
+<div id="quiz-section">
+  <h2 style="margin-top:50px;">Quiz — 20 Real-World Scenario Questions</h2>
+  <p class="quiz-intro">Ye quiz seedhi seedhi definitions nahi poochta — har sawal ek real-world situation deta hai. Sab 20 sawal attempt karein phir "Quiz Submit Karein" dabayein.</p>
+  <div id="score-banner" class="score-banner" style="display:none;"></div>
+  <div id="quiz-questions"></div>
+  <div class="quiz-actions">
+    <button id="submitQuizBtn" class="btn-primary">Quiz Submit Karein</button>
+    <button id="retakeQuizBtn" class="btn-secondary" style="display:none;">Dobara Quiz Lein</button>
+  </div>
+</div>
+
+<footer>
+  Source: <a href="https://agentfactory.panaversity.org/roman/docs/claude-chatgpt-101-crash-course" target="_blank">https://agentfactory.panaversity.org/roman/docs/claude-chatgpt-101-crash-course</a>
+</footer>
+
+</div>
+
+<script>
+const quizData = [
+  {
+    q: "Ek user Claude aur ChatGPT dono sikhne mein waqt zaya samajhta hai, sirf ek chunta hai. Chapter ke mutabiq kya masla hai?",
+    options: ["Ye sahi soch hai, sirf ek sikhna kaafi hai", "Dono products alag naam rakhte hain lekin ek hi discipline sikhate hain — dono jaanna practical bhi hai kyun ke har task par performance alag hoti hai", "ChatGPT hamesha behtar hai", "Claude hamesha behtar hai"],
+    correct: 1,
+    explain: "Platform awareness zaroori hai — aham kaam dono mein try karna aur compare karna achi aadat hai."
+  },
+  {
+    q: "Ek user ek chhoti summary chahiye lekin seedha 'heavy/flagship' model chun leta hai. Kya ye sahi hai?",
+    options: ["Haan, hamesha strongest model use karna chahiye", "Nahi — Rule 1 kehta hai fast mode se shuru karo, chhoti summary ke liye heavy model ki zaroorat nahi", "Model chunna koi farak nahi dalta", "Sirf Claude mein ye rule lagu hota hai"],
+    correct: 1,
+    explain: "Fast default rozmarra ke kaam (drafting, summary) ke liye kaafi hai — heavy model sirf sabse mushkil kaam ke liye."
+  },
+  {
+    q: "Ek user complain karta hai 'AI ne mera math wala sawal galat kiya'. Asal masla kya ho sakta hai?",
+    options: ["AI hamesha math mein bekar hota hai", "Shayad galat capability level use hua — mushkil reasoning/math ke liye Thinking mode chahiye tha, Fast mode nahi", "Math kabhi AI se nahi karwana chahiye", "Ye sirf ChatGPT ka masla hai"],
+    correct: 1,
+    explain: "Kabhi 'AI fail ho gaya' ka asal matlab hota hai 'maine capability ka galat level istemaal kiya' — mushkil math ke liye Thinking mode chahiye."
+  },
+  {
+    q: "Ek user apna contract ka summary poochta hai bina file attach kiye. Jawab generic aata hai. Kya masla hai?",
+    options: ["AI ne contract parh liya hoga apne aap", "AI sirf wahi dekh sakta hai jo saamne rakha jaye — bina attachment ke wo asal contract nahi dekh sakta", "Ye sirf lambe contracts mein masla hota hai", "Contract summary kabhi kaam nahi karti"],
+    correct: 1,
+    explain: "Idea 3: language model sirf us information ke saath kaam karta hai jo uske saamne ho — file attach karna zaroori context deta hai."
+  },
+  {
+    q: "Ek teacher har hafte apna syllabus dobara paste karti hai, aur 3 baar aisa ho chuka hai. Kya karna chahiye?",
+    options: ["Har hafte yehi karte raho", "Ab is kaam ka Project banana chahiye, taake syllabus khud-b-khud har chat mein load ho", "Naya account banao", "Ye normal hai, kuch nahi karna"],
+    correct: 1,
+    explain: "Test: agar wahi background ya file 3 baar dobara di gayi, us kaam ka Project banna chahiye."
+  },
+  {
+    q: "Ek user ChatGPT mein apna 'project-only memory' on karta hai. Iska kya matlab hai?",
+    options: ["Uski wasi memory bhi is project mein aa jayegi", "Us project ka boundary ban jata hai — bahar ki memories andar nahi aatin, isolation milti hai", "Memory feature poora band ho jata hai", "Sirf Claude mein ye feature hai"],
+    correct: 1,
+    explain: "Project-only memory 'project' ko asal boundary banati hai — bahar ki general memory is project ke andar nahi aati."
+  },
+  {
+    q: "Ek user apni AI settings mein likhta hai 'hamesha metric units use karo, chahe koi bhi kaam ho'. Ye kaunsi feature hai?",
+    options: ["Memory", "Standing Instructions — kyun ke ye stable rule hai jo har jagah lagu hoti hai", "Project", "Skill"],
+    correct: 1,
+    explain: "Stable rules jo hamesha, har chat mein lagu honi chahiye — Standing Instructions (Custom Instructions) mein jati hain."
+  },
+  {
+    q: "Ek user incognito/temporary chat use karta hai sochte hue 'kuch bhi record nahi hoga'. Kya ye bilkul sahi hai?",
+    options: ["Haan, kuch bhi kahin nahi jata", "Nahi — ye 'memory-free' hai lekin 'trace-free' nahi, company safety ke liye ~30 din ek copy rakhti hai", "Incognito chat kabhi kaam nahi karti", "Ye sirf ChatGPT mein sach hai"],
+    correct: 1,
+    explain: "Zaroori honest baat: incognito/temporary chats memory-free hain, trace-free nahi — thori der ke liye copy rakhi jati hai safety review ke liye."
+  },
+  {
+    q: "Ek user seedha 'ek dashboard banao' kehta hai bina detail diye. Result generic aata hai. Kya masla hai?",
+    options: ["Kuch masla nahi", "Behtar tha 'mukammal cheez kya karni chahiye' poora batana — kis ke liye, kya kaam karta ho", "Dashboard AI se kabhi nahi banwana chahiye", "Isay Skill se hal karna chahiye"],
+    correct: 1,
+    explain: "Behtar results ke liye poora batana chahiye ke mukammal cheez kya karni chahiye, sirf naam nahi maangna chahiye."
+  },
+  {
+    q: "Ek marketer har baar apni report ek hi format mein chahti hai, lekin har baar wahi rules dobara type karti hai. Ye kis feature ka kaam hai?",
+    options: ["Project", "Skill — kyun ke ye baar baar hone wale kaam ko ek packaged tareeqe mein sikhati hai", "Memory", "Connector"],
+    correct: 1,
+    explain: "Skill isi kaam ke liye hai: 'AI se har baar wahi tareeqa kaise follow karwaoon' — ek dafa sikhao, hamesha use ho."
+  },
+  {
+    q: "Ek user poochta hai 'Project aur Skill mein kya farq hai?'. Sahi jawab kya hai?",
+    options: ["Dono ek hi cheez hain", "Project 'kya jaankari' rakhta hai, Skill 'kaise kaam' karti hai", "Skill sirf coding ke liye hai", "Project sirf ek baar wale kaam ke liye hai"],
+    correct: 1,
+    explain: "Yaad rakhne wali line: 'Projects knowledge rakhte hain. Skills tasks karti hain.'"
+  },
+  {
+    q: "Ek user ChatGPT mein ek 'Custom GPT' banata hai, phir Claude mein wahi cheez use karna chahta hai. Kya ye direct chal jayegi?",
+    options: ["Haan, sab jagah chalti hai", "Nahi — Custom GPT sirf ChatGPT mein locked hai; Skill hi wo cheez hai jo open standard ki wajah se dono jagah chalti hai", "Haan, lekin sirf paid plan mein", "Custom GPTs kahin nahi chalti"],
+    correct: 1,
+    explain: "Custom GPTs sirf ChatGPT mein locked hain. Skills 'Agent Skills open standard' ki wajah se kai tools mein portable hain."
+  },
+  {
+    q: "Ek user apna Gmail connect karta hai AI se. Kya AI ab poori company ke saare emails dekh sakta hai?",
+    options: ["Haan, connector sab kholta hai", "Nahi — AI sirf wahi dekh sakta hai jo user ka apna account dekh sakta hai, usse zyada nahi", "Sirf agar admin allow kare", "Connector kabhi kisi cheez tak reach nahi deta"],
+    correct: 1,
+    explain: "Aapki di hui permissions ke mutabiq hi connector/app kaam karta hai — jo aapka account dekh sakta hai, wahi AI dekh sakta hai."
+  },
+  {
+    q: "Ek user apna calendar connect karne se pehle kya poochna chahiye?",
+    options: ["Sirf 'kya ye sasta hai'", "Ye kya parh sakta hai, kya likh/delete kar sakta hai, kya mujhe source par bharosa hai, aur kya mujhe connect karne ki ijazat hai", "Kuch nahi poochna, seedha connect kar dena chahiye", "Sirf company ka logo dekh lena kaafi hai"],
+    correct: 1,
+    explain: "4 zaroori sawal connect karne se pehle: kya parh sakta hai, kya action le sakta hai, source par bharosa hai ya nahi, aur ijazat hai ya nahi."
+  },
+  {
+    q: "Ek user aaj ka exchange rate poochta hai lekin 'Research mode' use karta hai, jisse 5 minute lag jate hain. Kya ye sahi raasta tha?",
+    options: ["Haan, Research hamesha behtar hota hai", "Nahi — current fact ke liye Web search kaafi tha, jo seconds mein jawab de deta, Research zaroori nahi tha", "Thinking mode use karna chahiye tha", "Exchange rate AI se poocha hi nahi ja sakta"],
+    correct: 1,
+    explain: "Routing table: current fact ke liye Web search sahi raasta hai — Research mode minutes leta hai jo iske liye zaroorat se zyada hai."
+  },
+  {
+    q: "Ek user 'pricing ki 3 strategies compare karo' poochta hai bina koi nayi information ke. Sahi raasta kya hai?",
+    options: ["Web search", "Thinking mode — kyun ke ye deep reasoning hai, koi nayi info nahi chahiye", "Research mode", "Workplace search"],
+    correct: 1,
+    explain: "Deep reasoning bina nayi information ke Thinking mode ka kaam hai — model jawab se pehle plan karta hai."
+  },
+  {
+    q: "Ek user 'market ka poora research karo warehouse robotics par' poochta hai. Kaunsa mode sahi hai?",
+    options: ["Web search seconds mein", "Research mode — kyun ke isay poori, cited, multi-source investigation chahiye", "Sirf Thinking mode kaafi hai", "Ye sawal AI se nahi poocha ja sakta"],
+    correct: 1,
+    explain: "Poori, cited, multi-source report Research mode ka kaam hai — minutes ki autonomous investigation."
+  },
+  {
+    q: "Research mode se ek report mil jati hai citations ke sath. Kya iska matlab hai user ki zimmedari khatam ho gayi?",
+    options: ["Haan, AI ne poora kaam kar diya, ab check karne ki zaroorat nahi", "Nahi — aham claims check karna, citations khol kar dekhna abhi bhi user ka kaam hai", "Sirf agar report lambi ho to check karna chahiye", "Research mode kabhi galat nahi hota"],
+    correct: 1,
+    explain: "Research aapki reach barhati hai, lekin accountability kisi ko transfer nahi karti — aham claims aur citations khud check karna zaroori hai."
+  },
+  {
+    q: "Ek program director apna naya report AI se banwana chahta hai. Sahi tareeqa kya hai?",
+    options: ["Seedha naye data par bharosa kar ke shuru karo", "Pehle purani quarter ka data do jiska sahi analysis pehle se pata hai, AI se dobara banwao, apne jaane huye jawab se compare karo", "AI se poocho 'kya tum acha ho' aur maan lo", "Kabhi AI se ye kaam na karwao"],
+    correct: 1,
+    explain: "Prove-it loop: purani misaal jiska sahi jawab pata ho, use kar ke test karo — pehle naya data par risk lena sahi nahi."
+  },
+  {
+    q: "Ek test mein AI ka jawab purane jaane hue jawab se match nahi hota. Kya ye ek 'failure' hai jise ignore karna chahiye?",
+    options: ["Haan, is test ka koi faida nahi", "Nahi — ye bhi zaroori seekh hai, isse pata chalta hai ye kaam insaan ke paas hi rehna chahiye", "Test dobara sirf same tareeqe se karna chahiye", "AI ko yehi kaam bar bar dena chahiye jab tak match na ho"],
+    correct: 1,
+    explain: "Teeno outcomes kaam ke hain: match hona, thora sudhar chahiye hona, ya ye pata chalna ke task insaan ke paas rehna chahiye — teeno faida mand hain."
+  },
+  {
+    q: "Ek user MCP ko samajhta hai 'access ka guarantee' — kyun ke ek hi standard hai. Kya ye sahi samajh hai?",
+    options: ["Haan, MCP access ka guarantee hai", "Nahi — MCP sirf plug ka standard hai (jaise USB-C), tool connect karna trust ka faisla hai, plug ka standard hona access ko safe nahi banata", "MCP sirf Claude mein hota hai", "MCP ka koi practical faida nahi"],
+    correct: 1,
+    explain: "'Plug standard hai; access standard nahin.' MCP connection ka common tareeqa hai, lekin har connection apna trust decision hai."
+  }
+];
+
+let userAnswers = new Array(quizData.length).fill(null);
+
+function renderQuiz() {
+  const container = document.getElementById('quiz-questions');
+  container.innerHTML = '';
+  quizData.forEach((item, idx) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'quiz-question';
+    qDiv.id = 'q-block-' + idx;
+    let optionsHtml = '';
+    item.options.forEach((opt, oIdx) => {
+      optionsHtml += `
+        <label class="quiz-option" id="opt-${idx}-${oIdx}">
+          <input type="radio" name="q${idx}" value="${oIdx}" onchange="selectAnswer(${idx}, ${oIdx})">
+          <span>${opt}</span>
+        </label>`;
+    });
+    qDiv.innerHTML = `
+      <p class="quiz-q-text"><strong>Sawal ${idx + 1}:</strong> ${item.q}</p>
+      <div class="quiz-options">${optionsHtml}</div>
+      <p class="quiz-explain" id="explain-${idx}" style="display:none;"></p>
+    `;
+    container.appendChild(qDiv);
+  });
+}
+
+function selectAnswer(qIdx, oIdx) {
+  userAnswers[qIdx] = oIdx;
+}
+
+function submitQuiz() {
+  let score = 0;
+  let unanswered = 0;
+  quizData.forEach((item, idx) => {
+    const selected = userAnswers[idx];
+    if (selected === null) unanswered++;
+    for (let o = 0; o < item.options.length; o++) {
+      const label = document.getElementById(`opt-${idx}-${o}`);
+      label.querySelector('input').disabled = true;
+      if (o === item.correct) {
+        label.classList.add('correct-answer');
+      } else if (o === selected && selected !== item.correct) {
+        label.classList.add('wrong-answer');
+      }
+    }
+    if (selected === item.correct) score++;
+    const explainEl = document.getElementById(`explain-${idx}`);
+    explainEl.textContent = 'Wazahat: ' + item.explain;
+    explainEl.style.display = 'block';
+  });
+
+  const percent = Math.round((score / quizData.length) * 100);
+  const banner = document.getElementById('score-banner');
+  banner.style.display = 'block';
+  let msg = `Aapka Score: ${score} / ${quizData.length} (${percent}%)`;
+  if (unanswered > 0) msg += ` — ${unanswered} sawal chhoray gaye the.`;
+  if (percent >= 70) {
+    banner.className = 'score-banner pass';
+  } else {
+    banner.className = 'score-banner fail';
+    msg += ' — 70% se kam hai, chapter dobara review karein.';
+  }
+  banner.textContent = msg;
+  banner.scrollIntoView({behavior:'smooth', block:'start'});
+
+  document.getElementById('submitQuizBtn').style.display = 'none';
+  document.getElementById('retakeQuizBtn').style.display = 'inline-block';
+}
+
+function retakeQuiz() {
+  userAnswers = new Array(quizData.length).fill(null);
+  document.getElementById('score-banner').style.display = 'none';
+  document.getElementById('submitQuizBtn').style.display = 'inline-block';
+  document.getElementById('retakeQuizBtn').style.display = 'none';
+  renderQuiz();
+  document.getElementById('quiz-section').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+document.getElementById('submitQuizBtn').addEventListener('click', submitQuiz);
+document.getElementById('retakeQuizBtn').addEventListener('click', retakeQuiz);
+renderQuiz();
+</script>
+
+</body>
+</html>
